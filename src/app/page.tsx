@@ -1,12 +1,12 @@
+import { getServerSession } from "next-auth";
 import Logo from "@/components/Logo";
 import SignInButton from "@/components/SignInButton";
-import { getServerSession } from "next-auth";
-import { authConfig } from "./api/auth/[...nextauth]/route";
 import LogOutButton from "@/components/LogOutButton";
+import { authConfig } from "@/lib/auth";
 
 export default async function Home() {
   const session = await getServerSession(authConfig);
-
+  console.log(session);
   return (
     <main className="h-pageHeight flex justify-center items-center">
       <div className="w-8/12 md:w-4/12 border-2 border-black rounded-xl p-6">
