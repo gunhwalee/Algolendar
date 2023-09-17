@@ -2,11 +2,11 @@
 
 import Image from "next/image";
 import googleLogo from "@/../public/google-logo.png";
-import { signIn } from "next-auth/react";
+import { signOut } from "next-auth/react";
 
-export default function SignInButton() {
+export default function LogOutButton() {
   const clickHandler = () => {
-    signIn("google");
+    signOut();
   };
 
   return (
@@ -15,7 +15,7 @@ export default function SignInButton() {
       onClick={clickHandler}
     >
       <Image src={googleLogo} alt="google-logo" width={30} />
-      <span className="ml-2">Sign in with Google</span>
+      <span className="ml-2">Log out</span>
     </button>
   );
 }
