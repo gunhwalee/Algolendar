@@ -1,11 +1,12 @@
 import GoogleProvider from "next-auth/providers/google";
 import { NextAuthOptions } from "next-auth";
+import { CALENDAR_API } from "@/config/CALENDAR";
 
 export const authConfig: NextAuthOptions = {
   providers: [
     GoogleProvider({
-      clientId: process.env.CLIENT_ID || "",
-      clientSecret: process.env.CLIENT_SECRET || "",
+      clientId: CALENDAR_API.CLIENT_ID || "",
+      clientSecret: CALENDAR_API.CLIENT_SECRET || "",
       authorization: {
         params: {
           scope:
@@ -15,13 +16,19 @@ export const authConfig: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token, account }) {
+    async jwt({ token, account, profile, user }) {
+      console.log("account: ", account);
+      console.log("profile: ", profile);
+      console.log("user: ", user);
+
       if (account?.access_token) {
         token.accessToken = account.access_token;
       }
       return token;
     },
     async session({ session, token, user }) {
+      // console.log(user);
+      // console.log(token);
       if (token.accessToken) {
         session.accessToken = token.accessToken;
       }
