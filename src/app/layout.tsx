@@ -1,6 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import Logo from "@/components/Logo";
+import Logo from "@/components/common/Logo";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Algolendar",
@@ -16,7 +17,9 @@ export default function RootLayout({
     <html>
       <body>
         <header className="p-4">
-          <Logo size={30} />
+          <Link href="/">
+            <Logo size={30} />
+          </Link>
         </header>
         {children}
       </body>

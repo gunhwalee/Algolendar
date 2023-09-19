@@ -9,6 +9,7 @@ const config: Config = {
     extend: {
       height: {
         pageHeight: "calc(100% - 4.5rem)",
+        userPageHeight: "calc(100% - 9rem)",
       },
     },
   },

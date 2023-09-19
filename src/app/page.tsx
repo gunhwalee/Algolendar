@@ -1,11 +1,15 @@
 import { getServerSession } from "next-auth";
-import Logo from "@/components/Logo";
-import SignInButton from "@/components/SignInButton";
-import LogOutButton from "@/components/LogOutButton";
+import Logo from "@/components/common/Logo";
+import SignInButton from "@/components/common/SignInButton";
 import { authConfig } from "@/lib/auth";
+import { redirect } from "next/navigation";
 
 export default async function Home() {
   const session = await getServerSession(authConfig);
+
+  if (session) {
+    return redirect(`/user/${session.id}`);
+  }
 
   return (
     <main className="h-pageHeight flex justify-center items-center">
@@ -18,7 +22,7 @@ export default async function Home() {
           스케줄을 보다 쉽게 기록 관리해 주는 서비스입니다. Algolendar를
           사용하려면 Google 계정으로 로그인해 주세요.
         </p>
-        {session ? <LogOutButton /> : <SignInButton />}
+        <SignInButton />
         <a href="http://localhost:3000/api/calendar">API</a>
       </div>
     </main>
