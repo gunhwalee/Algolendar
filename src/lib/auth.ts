@@ -1,6 +1,9 @@
 import GoogleProvider from "next-auth/providers/google";
+import { PrismaClient } from "@prisma/client";
 import { NextAuthOptions } from "next-auth";
 import { CALENDAR_API } from "@/config/CALENDAR";
+
+const prisma = new PrismaClient();
 
 export const authConfig: NextAuthOptions = {
   providers: [
@@ -16,6 +19,27 @@ export const authConfig: NextAuthOptions = {
     }),
   ],
   callbacks: {
+    async signIn({ user }) {
+      try {
+        let userId = await prisma.user.findUnique({
+          where: {
+            id: user.id,
+          },
+        });
+
+        if (!userId) {
+          const newUser = { id: user.id, name: user.name!, email: user.email! };
+          userId = await prisma.user.create({
+            data: newUser,
+          });
+        }
+
+        return true;
+      } catch (error) {
+        console.log(error);
+        return false;
+      }
+    },
     async jwt({ token, account }) {
       if (account?.access_token) {
         token.accessToken = account.access_token;
