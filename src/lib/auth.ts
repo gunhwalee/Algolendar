@@ -6,6 +6,9 @@ import { CALENDAR_API } from "@/config/CALENDAR";
 const prisma = new PrismaClient();
 
 export const authConfig: NextAuthOptions = {
+  session: {
+    strategy: "jwt",
+  },
   providers: [
     GoogleProvider({
       clientId: CALENDAR_API.CLIENT_ID || "",

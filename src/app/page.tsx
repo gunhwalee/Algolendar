@@ -23,7 +23,6 @@ export default async function Home() {
           사용하려면 Google 계정으로 로그인해 주세요.
         </p>
         <SignInButton />
-        <a href="http://localhost:3000/api/calendar">API</a>
       </div>
     </main>
   );

@@ -2,6 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import Logo from "@/components/common/Logo";
 import Link from "next/link";
+import AuthSession from "@/lib/AuthSession";
 
 export const metadata: Metadata = {
   title: "Algolendar",
@@ -16,12 +17,14 @@ export default function RootLayout({
   return (
     <html>
       <body>
-        <header className="p-4">
-          <Link href="/">
-            <Logo size={30} />
-          </Link>
-        </header>
-        {children}
+        <AuthSession>
+          <header className="p-4">
+            <Link href="/">
+              <Logo size={30} />
+            </Link>
+          </header>
+          {children}
+        </AuthSession>
       </body>
     </html>
   );
