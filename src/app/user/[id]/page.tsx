@@ -1,25 +1,8 @@
-import Button from "@/components/common/Button";
-import { authConfig } from "@/lib/auth";
-import { getServerSession } from "next-auth";
 import Link from "next/link";
 
-export default async function Page() {
-  const session = await getServerSession(authConfig);
-  const response = await fetch(
-    "https://www.googleapis.com/calendar/v3/users/me/calendarList",
-    {
-      method: "GET",
-      headers: {
-        Authorization: "Bearer " + session?.accessToken,
-      },
-    }
-  );
-
-  const data = await response.json();
-  // console.log(data);
-
+export default function Page() {
   return (
-    <div className="bg-red-100 h-userPageHeight flex justify-center items-center">
+    <div className="h-userPageHeight flex justify-center items-center">
       <div className="w-8/12 md:w-4/12 border-2 border-black rounded-xl p-6">
         <p>
           Algolendar는 Google Calendar와 Leetcode를 연동해 알고리즘 공부

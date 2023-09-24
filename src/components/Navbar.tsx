@@ -9,10 +9,7 @@ export default async function Navbar() {
   return (
     <nav className="flex justify-between px-8 py-2">
       <div>{session?.user?.name}</div>
-      <Link href="/calendar">
-        <div>캘린더 설정</div>
-      </Link>
-      <Link href="/calendar">
+      <Link href={`/user/${session?.id}/setting`}>
         <div>알고리즘 설정</div>
       </Link>
       <SignOutButton />
