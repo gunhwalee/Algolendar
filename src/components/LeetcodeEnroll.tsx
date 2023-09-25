@@ -1,9 +1,11 @@
 "use client";
 
+import { useSession } from "next-auth/react";
 import { useState } from "react";
 
 export default function LeetcodeEnroll() {
   const [leetcode, setLeetCode] = useState<string>("");
+  const { data: session } = useSession();
 
   const inputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setLeetCode(event.target.value);
@@ -11,7 +13,7 @@ export default function LeetcodeEnroll() {
 
   const submitHandler = async () => {
     try {
-      const res = await fetch("http://localhost:3000/api/user", {
+      const res = await fetch(`http://localhost:3000/api/user/${session?.id}`, {
         method: "PATCH",
         body: JSON.stringify(leetcode),
       });

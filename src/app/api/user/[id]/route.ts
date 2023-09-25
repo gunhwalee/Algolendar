@@ -11,6 +11,7 @@ export async function PATCH(req: NextRequest) {
   const query = GRAPHQL.CHECK_USER;
   const session = await getServerSession(authConfig);
   const { id } = session!;
+
   try {
     const res = await fetch("https://leetcode.com/graphql", {
       method: "POST",
@@ -34,6 +35,24 @@ export async function PATCH(req: NextRequest) {
     });
 
     return NextResponse.json({ result: "ok" });
+  } catch (error) {
+    console.log("Error is: ", error);
+    return NextResponse.json({ result: "ng" }, { status: 500 });
+  }
+}
+
+export async function GET(
+  req: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  const id = params.id;
+
+  try {
+    const user = await prisma.user.findUnique({ where: { id } });
+
+    if (!user) return NextResponse.json({ result: "error" });
+
+    return NextResponse.json({ result: "ok", data: user.leetcode });
   } catch (error) {
     console.log("Error is: ", error);
     return NextResponse.json({ result: "ng" }, { status: 500 });

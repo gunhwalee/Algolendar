@@ -19,7 +19,7 @@ export default async function Layout({
     <main className="h-pageHeight flex flex-col">
       <Navbar />
       <div className="w-full h-full md:flex">
-        <UserInfo user={true} />
+        <UserInfo />
         {children}
       </div>
     </main>
