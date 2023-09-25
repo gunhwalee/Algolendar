@@ -1,14 +1,9 @@
 "use client";
 
-import { useSession } from "next-auth/react";
 import { useState } from "react";
-import axios from "axios";
 
-export default function InputBox() {
+export default function LeetcodeEnroll() {
   const [leetcode, setLeetCode] = useState<string>("");
-  const { data } = useSession();
-
-  if (!data) return null;
 
   const inputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setLeetCode(event.target.value);
@@ -16,15 +11,19 @@ export default function InputBox() {
 
   const submitHandler = async () => {
     try {
-      await axios.patch(`http://localhost:3000/api/user/${data.id}`, {
-        leetcode,
+      const res = await fetch("http://localhost:3000/api/user", {
+        method: "PATCH",
+        body: JSON.stringify(leetcode),
       });
-      alert("Leetcode 아이디 등록이 완료됐습니다.");
+      const data = await res.json();
+
+      if (data.result === "error") alert("Leetcode 아이디를 확인해주세요.");
+      else if (data.result === "ng") alert("잠시 후 다시 시도해주세요.");
+      else alert("Leetcode 등록이 완료됐습니다.");
     } catch (error) {
       let message;
       if (error instanceof Error) message = error.message;
-      if (message?.includes("400")) alert("Leetcode 아이디를 확인해주세요.");
-      if (message?.includes("500")) alert("잠시 후 다시 시도해주세요.");
+      console.log(message);
     }
   };
 
