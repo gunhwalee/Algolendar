@@ -2,8 +2,8 @@ import Link from "next/link";
 
 export default function Page() {
   return (
-    <div className="h-userPageHeight flex justify-center items-center">
-      <div className="w-8/12 md:w-4/12 border-2 border-black rounded-xl p-6">
+    <section className="w-pageWidth h-full flex justify-center items-center bg-green-300">
+      <div className="w-6/12 border-2 border-black rounded-xl p-6">
         <p>
           Algolendar는 Google Calendar와 Leetcode를 연동해 알고리즘 공부
           스케줄을 관리하는 애플리케이션입니다.
@@ -25,6 +25,6 @@ export default function Page() {
         </p>
         <p>4. 캘린더에 등록된 알고리즘을 </p>
       </div>
-    </div>
+    </section>
   );
 }

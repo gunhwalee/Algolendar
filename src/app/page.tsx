@@ -8,12 +8,12 @@ export default async function Home() {
   const session = await getServerSession(authConfig);
 
   if (session) {
-    return redirect(`/user/${session.id}`);
+    return redirect("/user");
   }
 
   return (
     <main className="h-pageHeight flex justify-center items-center">
-      <div className="w-8/12 md:w-4/12 border-2 border-black rounded-xl p-6">
+      <div className="w-4/12 border-2 border-black rounded-xl p-6">
         <div className="mb-4">
           <Logo size={60} />
         </div>
