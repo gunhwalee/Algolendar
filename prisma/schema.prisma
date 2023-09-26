@@ -12,7 +12,7 @@ model user {
   name     String    @db.VarChar(30)
   email    String    @db.VarChar(30)
   leetcode String?   @db.VarChar(20)
-  calendar String    @default("primary") @db.VarChar(20)
+  calendar String    @default("primary") @db.VarChar(100)
   created  DateTime? @default(now()) @db.DateTime(0)
   setting  Int?
 }
