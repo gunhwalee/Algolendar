@@ -1,29 +1,38 @@
-import { getServerSession } from "next-auth";
-import Logo from "@/components/common/Logo";
-import SignInButton from "@/components/common/SignInButton";
-import { authConfig } from "@/lib/auth";
-import { redirect } from "next/navigation";
+import Link from "next/link";
 
-export default async function Home() {
-  const session = await getServerSession(authConfig);
-
-  if (session) {
-    return redirect("/user");
-  }
-
+export default async function Page() {
   return (
-    <main className="h-pageHeight flex justify-center items-center">
-      <div className="w-4/12 border-2 border-black rounded-xl p-6">
-        <div className="mb-4">
-          <Logo size={60} />
-        </div>
-        <p className="mb-4">
+    <section className="w-pageWidth h-full p-12">
+      <div className="pb-4 mb-8 border-b border-gray-800">
+        <h2 className="text-white text-3xl mb-4">Algolendar</h2>
+        <p className="mb-2">
           Algolendar는 Google Calendar와 Leetcode를 연동해 알고리즘 공부
-          스케줄을 보다 쉽게 기록 관리해 주는 서비스입니다. Algolendar를
-          사용하려면 Google 계정으로 로그인해 주세요.
+          스케줄을 관리하는 애플리케이션입니다.
         </p>
-        <SignInButton />
+        <p className="mb-2">
+          Algolendar를 사용하려면 메뉴의 로그인 버튼을 눌러 Google 계정으로
+          로그인해 주세요.
+        </p>
       </div>
-    </main>
+      <div className="pb-4 mb-8 border-b border-gray-800">
+        <h2 className="text-white text-3xl mb-4">How to Use</h2>
+        <p className="mb-2">
+          1.{" "}
+          <Link href="https://www.leetcode.com">
+            <span className="text-blue-600">Leetcode</span>
+          </Link>{" "}
+          계정을 등록해 알고리즘 문제의 제출 기록을 관리할 수 있습니다.
+        </p>
+        <p className="mb-2">
+          2. 캘린더 설정 페이지에서 스케줄을 등록할 캘린더를 설정해주세요.
+          별도의 설정이 없다면 기본 캘린더에 등록됩니다.
+        </p>
+        <p className="mb-2">
+          3. 알고리즘 설정 페이지에서 캘린더에 등록할 공부 스케줄을
+          설정해보세요. 난이도, 주제, 빈도를 다양하게 설정할 수 있습니다.
+        </p>
+        <p className="mb-2">4. 캘린더에 등록된 알고리즘을 </p>
+      </div>
+    </section>
   );
 }

@@ -57,7 +57,7 @@ export async function PATCH(req: NextRequest) {
       message: "Leetcode 계정 등록이 완료됐습니다.",
     });
   } catch (error) {
-    console.log("Error is: ", error);
+    console.error("Error is: ", error);
     return NextResponse.json({
       result: "ng",
       message: "잠시 후 다시 시도해주세요.",
@@ -76,8 +76,11 @@ export async function GET() {
 
     return NextResponse.json({ result: "ok", data: user.leetcode });
   } catch (error) {
-    console.log("Error is: ", error);
-    return NextResponse.json({ result: "ng" }, { status: 500 });
+    console.error("Error is: ", error);
+    return NextResponse.json({
+      result: "ng",
+      message: "잠시 후 다시 시도해주세요.",
+    });
   }
 }
 

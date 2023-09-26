@@ -11,7 +11,6 @@ export default function SubmitForm({ list }: { list: SubmitFormProps[] }) {
   const [calendar, setCalendar] = useState<string>("");
 
   const submitOption = async () => {
-    console.log(calendar);
     try {
       const response = await fetch("http://localhost:3000/api/user/calendar", {
         method: "PATCH",
@@ -31,7 +30,7 @@ export default function SubmitForm({ list }: { list: SubmitFormProps[] }) {
   };
 
   return (
-    <div className="h-fit p-3 overflow-y-auto text-sm bg-gray-700 text-gray-200 rounded-lg">
+    <div className="w-6/12 h-fit p-3 overflow-y-auto text-sm bg-gray-700 text-gray-200 rounded-lg">
       {list.map((element) => (
         <div key={element.value} className="p-2 rounded hover:bg-gray-600">
           <div className="flex items-center">

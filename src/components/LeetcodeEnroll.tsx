@@ -55,14 +55,14 @@ export default function LeetcodeEnroll() {
         onChange={inputHandler}
       />
       <button
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        className="bg-gray-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         onClick={submitHandler}
       >
         {data ? "변경" : "등록"}
       </button>
       {data && (
         <button
-          className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 ml-2 rounded"
+          className="bg-gray-600 hover:bg-red-500 text-white font-bold py-2 px-4 ml-2 rounded"
           onClick={(e) => {
             setLeetCode("");
             submitHandler(e);

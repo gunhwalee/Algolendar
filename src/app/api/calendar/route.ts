@@ -19,18 +19,21 @@ export async function GET() {
   const session = await getServerSession(authConfig);
   if (!session) return NextResponse.json({ message: "Please Log in" });
 
-  const res = await fetch(
-    "https://www.googleapis.com/calendar/v3/calendars/primary/events",
-    {
-      method: "POST",
-      headers: {
-        Authorization: "Bearer " + session.accessToken,
-      },
-      body: JSON.stringify(events),
-    }
-  );
+  try {
+    const response = await fetch(
+      "https://www.googleapis.com/calendar/v3/calendars/692937f2a193c7238adedf2bfbf83ac6fd45ed016ff0a269eb484225d11d2d0b@group.calendar.google.com/events",
+      {
+        method: "POST",
+        headers: {
+          Authorization: "Bearer " + session.accessToken,
+        },
+        body: JSON.stringify(events),
+      }
+    );
+    const data = await response.json();
 
-  const data = res.json();
-  console.log(data);
-  return NextResponse.redirect("http://localhost:3000");
+    return NextResponse.redirect("http://localhost:3000");
+  } catch (error) {
+    console.error(error);
+  }
 }

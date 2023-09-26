@@ -13,6 +13,11 @@ const config: Config = {
       width: {
         pageWidth: "calc(100% - 12rem)",
       },
+      colors: {
+        header: "#374151",
+        side: "#1f2937",
+        background: "#111827",
+      },
     },
   },
   plugins: [],
