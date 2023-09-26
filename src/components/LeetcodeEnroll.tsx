@@ -4,19 +4,18 @@ import { API } from "@/config/CONFIG";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 
-const fetchByParam = async () => {
+const fetchLeetcodeId = async () => {
   const response = await fetch(`${API.API_URL}/api/user`, {
     method: "GET",
   });
   const { data } = await response.json();
   return data;
 };
-// console.log(API.API_URL);
 
 export default function LeetcodeEnroll() {
   const { data, isLoading } = useQuery({
     queryKey: ["user"],
-    queryFn: () => fetchByParam(),
+    queryFn: () => fetchLeetcodeId(),
   });
   const [leetcode, setLeetCode] = useState<string>(data || "");
 
