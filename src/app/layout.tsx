@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Logo from "@/components/common/Logo";
 import Link from "next/link";
 import AuthSession from "@/lib/AuthSession";
+import TanstackProvider from "@/lib/TanstackProvider";
 
 export const metadata: Metadata = {
   title: "Algolendar",
@@ -18,12 +19,14 @@ export default function RootLayout({
     <html>
       <body>
         <AuthSession>
-          <header className="p-4">
-            <Link href="/">
-              <Logo size={30} />
-            </Link>
-          </header>
-          {children}
+          <TanstackProvider>
+            <header className="p-4 bg-yellow-200">
+              <Link href="/">
+                <Logo size={30} />
+              </Link>
+            </header>
+            {children}
+          </TanstackProvider>
         </AuthSession>
       </body>
     </html>
