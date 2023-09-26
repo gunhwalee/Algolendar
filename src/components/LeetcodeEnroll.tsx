@@ -1,11 +1,10 @@
 "use client";
 
-import { useSession } from "next-auth/react";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 
-const fetchByParam = async (id: string) => {
-  const response = await fetch(`http://localhost:3000/api/user/${id}`, {
+const fetchByParam = async () => {
+  const response = await fetch("http://localhost:3000/api/user", {
     method: "GET",
   });
   const { data } = await response.json();
@@ -13,13 +12,9 @@ const fetchByParam = async (id: string) => {
 };
 
 export default function LeetcodeEnroll() {
-  const { data: session } = useSession();
   const { data, isLoading } = useQuery({
     queryKey: ["user"],
-    queryFn: () => {
-      if (!session || !session.id) return "";
-      else return fetchByParam(session.id);
-    },
+    queryFn: () => fetchByParam(),
   });
   const [leetcode, setLeetCode] = useState<string>(data || "");
 
@@ -33,20 +28,17 @@ export default function LeetcodeEnroll() {
     setLeetCode(event.target.value);
   };
 
-  const submitHandler = async () => {
+  const submitHandler = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    const target = (event.target as HTMLElement).innerText;
+
     try {
-      const response = await fetch(
-        `http://localhost:3000/api/user/${session?.id}`,
-        {
-          method: "PATCH",
-          body: JSON.stringify(leetcode),
-        }
-      );
+      const response = await fetch("http://localhost:3000/api/user", {
+        method: "PATCH",
+        body: JSON.stringify(target === "삭제" ? "" : leetcode),
+      });
       const data = await response.json();
 
-      if (data.result === "error") alert("Leetcode 아이디를 확인해주세요.");
-      else if (data.result === "ng") alert("잠시 후 다시 시도해주세요.");
-      else alert("Leetcode 등록이 완료됐습니다.");
+      alert(data.message);
     } catch (error) {
       let message;
       if (error instanceof Error) message = error.message;
@@ -68,6 +60,17 @@ export default function LeetcodeEnroll() {
       >
         {data ? "변경" : "등록"}
       </button>
+      {data && (
+        <button
+          className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 ml-2 rounded"
+          onClick={(e) => {
+            setLeetCode("");
+            submitHandler(e);
+          }}
+        >
+          삭제
+        </button>
+      )}
     </div>
   );
 }

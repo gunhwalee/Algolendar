@@ -13,6 +13,20 @@ export async function PATCH(req: NextRequest) {
   const { id } = session!;
 
   try {
+    if (!username) {
+      await prisma.user.update({
+        where: {
+          id,
+        },
+        data: { leetcode: null },
+      });
+
+      return NextResponse.json({
+        result: "ok",
+        message: "Leetcode 계정 삭제가 완료됐습니다.",
+      });
+    }
+
     const res = await fetch("https://leetcode.com/graphql", {
       method: "POST",
       headers: {
@@ -25,7 +39,11 @@ export async function PATCH(req: NextRequest) {
     });
     const data = await res.json();
 
-    if (data.errors) return NextResponse.json({ result: "error" });
+    if (data.errors)
+      return NextResponse.json({
+        result: "error",
+        message: "Leetcode 아이디를 확인해주세요.",
+      });
 
     await prisma.user.update({
       where: {
@@ -34,18 +52,22 @@ export async function PATCH(req: NextRequest) {
       data: { leetcode: data.data.matchedUser.username },
     });
 
-    return NextResponse.json({ result: "ok" });
+    return NextResponse.json({
+      result: "ok",
+      message: "Leetcode 계정 등록이 완료됐습니다.",
+    });
   } catch (error) {
     console.log("Error is: ", error);
-    return NextResponse.json({ result: "ng" }, { status: 500 });
+    return NextResponse.json({
+      result: "ng",
+      message: "잠시 후 다시 시도해주세요.",
+    });
   }
 }
 
-export async function GET(
-  req: NextRequest,
-  { params }: { params: { id: string } }
-) {
-  const id = params.id;
+export async function GET() {
+  const session = await getServerSession(authConfig);
+  const { id } = session!;
 
   try {
     const user = await prisma.user.findUnique({ where: { id } });
