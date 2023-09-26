@@ -1,3 +1,4 @@
+import { API } from "@/config/CONFIG";
 import { authConfig } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
@@ -21,7 +22,7 @@ export async function GET() {
 
   try {
     const response = await fetch(
-      "https://www.googleapis.com/calendar/v3/calendars/692937f2a193c7238adedf2bfbf83ac6fd45ed016ff0a269eb484225d11d2d0b@group.calendar.google.com/events",
+      `${API.CALENDAR_URL}/692937f2a193c7238adedf2bfbf83ac6fd45ed016ff0a269eb484225d11d2d0b@group.calendar.google.com/events`,
       {
         method: "POST",
         headers: {
@@ -32,7 +33,7 @@ export async function GET() {
     );
     const data = await response.json();
 
-    return NextResponse.redirect("http://localhost:3000");
+    return NextResponse.redirect("/");
   } catch (error) {
     console.error(error);
   }

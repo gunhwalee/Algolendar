@@ -1,7 +1,7 @@
 import GoogleProvider from "next-auth/providers/google";
 import { PrismaClient } from "@prisma/client";
 import { NextAuthOptions } from "next-auth";
-import { CALENDAR_API } from "@/config/CALENDAR";
+import { OAUTH } from "@/config/CONFIG";
 
 const prisma = new PrismaClient();
 
@@ -11,8 +11,8 @@ export const authConfig: NextAuthOptions = {
   },
   providers: [
     GoogleProvider({
-      clientId: CALENDAR_API.CLIENT_ID || "",
-      clientSecret: CALENDAR_API.CLIENT_SECRET || "",
+      clientId: OAUTH.CLIENT_ID || "",
+      clientSecret: OAUTH.CLIENT_SECRET || "",
       authorization: {
         params: {
           scope:

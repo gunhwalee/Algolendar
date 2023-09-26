@@ -1,14 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
-import GRAPHQL from "@/config/LEETCODE";
+import QUERY from "@/config/LEETCODE";
 import { PrismaClient } from "@prisma/client";
 import { getServerSession } from "next-auth";
 import { authConfig } from "@/lib/auth";
+import { API } from "@/config/CONFIG";
 
 const prisma = new PrismaClient();
 
 export async function PATCH(req: NextRequest) {
   const username = await req.json();
-  const query = GRAPHQL.CHECK_USER;
+  const query = QUERY.CHECK_USER;
   const session = await getServerSession(authConfig);
   const { id } = session!;
 
@@ -27,7 +28,7 @@ export async function PATCH(req: NextRequest) {
       });
     }
 
-    const res = await fetch("https://leetcode.com/graphql", {
+    const res = await fetch(API.LEETCODE_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

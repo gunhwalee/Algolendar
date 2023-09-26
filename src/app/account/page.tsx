@@ -2,6 +2,7 @@ import { authConfig } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 import LeetcodeEnroll from "@/components/LeetcodeEnroll";
 import SubmitForm from "@/components/SubmitForm";
+import { API } from "@/config/CONFIG";
 
 interface CalendarInfo {
   id: string;
@@ -12,13 +13,10 @@ interface CalendarInfo {
 
 export default async function Page() {
   const session = await getServerSession(authConfig);
-  const response = await fetch(
-    "https://www.googleapis.com/calendar/v3/users/me/calendarList",
-    {
-      method: "GET",
-      headers: { Authorization: "Bearer " + session?.accessToken },
-    }
-  );
+  const response = await fetch(`${API.CALENDAR_URL}/users/me/calendarList`, {
+    method: "GET",
+    headers: { Authorization: "Bearer " + session?.accessToken },
+  });
   const data = await response.json();
   if (data.error) return <div>다시 로그인해주세요.</div>;
 

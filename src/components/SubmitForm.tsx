@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { API } from "@/config/CONFIG";
 
 interface SubmitFormProps {
   name: string;
@@ -12,7 +13,7 @@ export default function SubmitForm({ list }: { list: SubmitFormProps[] }) {
 
   const submitOption = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/user/calendar", {
+      const response = await fetch(`${API.API_URL}/api/user/calendar`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",

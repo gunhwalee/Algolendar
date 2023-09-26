@@ -1,4 +1,4 @@
-const GRAPHQL = {
+const QUERY = {
   CHECK_USER: `query ($username: String!) {
     matchedUser(username: $username) {
       username
@@ -69,4 +69,4 @@ const GRAPHQL = {
   }`,
 };
 
-export default GRAPHQL;
+export default QUERY;

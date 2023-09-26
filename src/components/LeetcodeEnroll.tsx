@@ -1,15 +1,17 @@
 "use client";
 
+import { API } from "@/config/CONFIG";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 
 const fetchByParam = async () => {
-  const response = await fetch("http://localhost:3000/api/user", {
+  const response = await fetch(`${API.API_URL}/api/user`, {
     method: "GET",
   });
   const { data } = await response.json();
   return data;
 };
+// console.log(API.API_URL);
 
 export default function LeetcodeEnroll() {
   const { data, isLoading } = useQuery({
