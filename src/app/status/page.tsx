@@ -6,10 +6,8 @@ import QUERY from "@/config/LEETCODE";
 import TEXT from "@/constants/text";
 import { authConfig } from "@/lib/auth";
 import { Count, problemsCount } from "@/utils/transformProfile";
-import { PrismaClient } from "@prisma/client";
+import prisma from "@/lib/db";
 import { getServerSession } from "next-auth";
-
-const prisma = new PrismaClient();
 
 async function fetchData() {
   const session = await getServerSession(authConfig);

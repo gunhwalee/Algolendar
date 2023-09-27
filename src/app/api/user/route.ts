@@ -1,11 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import QUERY from "@/config/LEETCODE";
-import { PrismaClient } from "@prisma/client";
 import { getServerSession } from "next-auth";
 import { authConfig } from "@/lib/auth";
 import { API } from "@/config/CONFIG";
-
-const prisma = new PrismaClient();
+import prisma from "@/lib/db";
 
 export async function PATCH(req: NextRequest) {
   const username = await req.json();
