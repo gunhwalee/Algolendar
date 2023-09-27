@@ -7,5 +7,5 @@ export default function SignInButton() {
     signIn("google");
   };
 
-  return <button onClick={clickHandler}>Sign in with Google</button>;
+  return <button onClick={clickHandler}>구글 로그인</button>;
 }

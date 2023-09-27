@@ -9,5 +9,5 @@ export default function SignOutButton() {
     });
   };
 
-  return <button onClick={clickHandler}>Log out</button>;
+  return <button onClick={clickHandler}>로그아웃</button>;
 }

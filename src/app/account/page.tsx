@@ -3,6 +3,8 @@ import { getServerSession } from "next-auth";
 import LeetcodeEnroll from "@/components/LeetcodeEnroll";
 import SubmitForm from "@/components/SubmitForm";
 import { API } from "@/config/CONFIG";
+import InformationPage from "@/components/common/InformationPage";
+import TEXT from "@/constants/text";
 
 interface CalendarInfo {
   id: string;
@@ -18,7 +20,7 @@ export default async function Page() {
     headers: { Authorization: "Bearer " + session?.accessToken },
   });
   const data = await response.json();
-  if (data.error) return <div>다시 로그인해주세요.</div>;
+  if (data.error) return <InformationPage text={TEXT.RE_LOGIN} />;
 
   const list = data.items
     .filter((element: CalendarInfo) => element.accessRole !== "reader")

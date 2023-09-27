@@ -1,6 +1,8 @@
 import Statusbar from "@/components/Statusbar";
+import InformationPage from "@/components/common/InformationPage";
 import Progressbar from "@/components/common/Progressbar";
 import { API } from "@/config/CONFIG";
+import TEXT from "@/constants/text";
 import { Count, problemsCount } from "@/utils/transformProfile";
 import { headers } from "next/headers";
 
@@ -10,6 +12,8 @@ export default async function Page() {
     headers: headers(),
   });
   const { data } = await response.json();
+
+  if (!data) return <InformationPage text={TEXT.NEED_LEETCODE_ID} />;
   const solved = problemsCount(data);
 
   return (

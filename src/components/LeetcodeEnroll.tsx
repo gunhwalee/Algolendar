@@ -33,7 +33,7 @@ export default function LeetcodeEnroll() {
     const target = (event.target as HTMLElement).innerText;
 
     try {
-      const response = await fetch("http://localhost:3000/api/user", {
+      const response = await fetch(`${API.API_URL}/api/user`, {
         method: "PATCH",
         body: JSON.stringify(target === "삭제" ? "" : leetcode),
       });
