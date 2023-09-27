@@ -24,7 +24,7 @@ interface Submission {
   lang: string;
 }
 
-export function problemsCount(data: Profile) {
+export function problemsCount(data: Profile): Count[] {
   const {
     allQuestionsCount,
     matchedUser: {
