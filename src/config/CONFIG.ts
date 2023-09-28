@@ -4,8 +4,8 @@ const OAUTH = {
 };
 
 const API = {
-  API_URL: process.env.NEXT_PUBLIC_API_URL,
-  LEETCODE_URL: process.env.LEETCODE_URL || "",
+  API_URL: process.env.NEXT_PUBLIC_API_URL || "",
+  LEETCODE_URL: process.env.NEXT_PUBLIC_LEETCODE_URL || "",
   CALENDAR_URL: process.env.CALENDAR_URL || "",
 };
 
