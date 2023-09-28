@@ -5,7 +5,7 @@ import TEXT from "@/constants/text";
 import { useQuery } from "@tanstack/react-query";
 import InformationPage from "./common/InformationPage";
 import { Count, problemsCount } from "@/utils/transformProfile";
-import Statusbar from "./Statusbar";
+import TotalGraph from "./TotalGraph";
 import Progressbar from "./common/Progressbar";
 
 const fetchStatus = async () => {
@@ -35,7 +35,7 @@ export default function Status() {
 
   return (
     <div className="flex items-center">
-      <Statusbar data={solved[0]} />
+      <TotalGraph data={solved[0]} />
       <div className="ml-10">
         {solved.map((element: Count) => {
           if (element.difficulty !== "All")

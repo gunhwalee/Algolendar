@@ -4,7 +4,6 @@ import { API } from "@/config/CONFIG";
 import TEXT from "@/constants/text";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
-import InformationPage from "./common/InformationPage";
 
 const fetchLeetcodeId = async () => {
   try {

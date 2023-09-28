@@ -1,7 +1,7 @@
 import { Count } from "@/utils/transformProfile";
 import PercentText from "./PercentText";
 
-export default function Statusbar({ data }: { data: Count }) {
+export default function TotalGraph({ data }: { data: Count }) {
   const { count, total } = data;
   const ratio = count / total!;
   const radius = 46;
