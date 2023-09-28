@@ -82,17 +82,3 @@ export async function GET() {
     });
   }
 }
-
-/*
-{
-  errors: [
-    {
-      message: 'That user does not exist.',
-      locations: [Array],
-      path: [Array],
-      extensions: [Object]
-    }
-  ],
-  data: { matchedUser: null }
-}
-*/
