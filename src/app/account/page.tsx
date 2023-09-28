@@ -15,9 +15,10 @@ interface CalendarInfo {
 
 export default async function Page() {
   const session = await getServerSession(authConfig);
+  if (!session) return <InformationPage text={TEXT.RE_LOGIN} />;
+
   const response = await fetch(`${API.CALENDAR_URL}/users/me/calendarList`, {
-    method: "GET",
-    headers: { Authorization: "Bearer " + session?.accessToken },
+    headers: { Authorization: "Bearer " + session.accessToken },
   });
   const data = await response.json();
   if (data.error) return <InformationPage text={TEXT.RE_LOGIN} />;

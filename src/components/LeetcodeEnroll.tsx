@@ -1,27 +1,36 @@
 "use client";
 
 import { API } from "@/config/CONFIG";
+import TEXT from "@/constants/text";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
+import InformationPage from "./common/InformationPage";
 
 const fetchLeetcodeId = async () => {
-  const response = await fetch(`${API.API_URL}/api/user`, {
-    method: "GET",
-  });
-  const { data } = await response.json();
-  return data;
+  try {
+    const response = await fetch(`${API.API_URL}/api/user`);
+    const result = await response.json();
+
+    return result;
+  } catch (error) {
+    console.error("Error is: ", error);
+
+    return TEXT.SERVER_ERROR;
+  }
 };
 
 export default function LeetcodeEnroll() {
-  const { data, isLoading } = useQuery({
+  const { data: response, isLoading } = useQuery({
     queryKey: ["user"],
-    queryFn: () => fetchLeetcodeId(),
+    queryFn: fetchLeetcodeId,
   });
-  const [leetcode, setLeetCode] = useState<string>(data || "");
-
+  const [leetcode, setLeetCode] = useState<string>("");
   useEffect(() => {
-    if (data) setLeetCode(data);
-  }, [data]);
+    if (!response) return;
+
+    const { result, data } = response;
+    if (result === "ok") setLeetCode(data || "");
+  }, [response]);
 
   if (isLoading) return <div>Loading...</div>;
 
@@ -37,13 +46,11 @@ export default function LeetcodeEnroll() {
         method: "PATCH",
         body: JSON.stringify(target === "삭제" ? "" : leetcode),
       });
-      const data = await response.json();
+      const { message } = await response.json();
 
-      alert(data.message);
+      alert(message);
     } catch (error) {
-      let message;
-      if (error instanceof Error) message = error.message;
-      console.log(message);
+      console.error("Error is: ", error);
     }
   };
 
@@ -59,9 +66,9 @@ export default function LeetcodeEnroll() {
         className="bg-gray-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         onClick={submitHandler}
       >
-        {data ? "변경" : "등록"}
+        {response.data ? "변경" : "등록"}
       </button>
-      {data && (
+      {response.data && (
         <button
           className="bg-gray-600 hover:bg-red-500 text-white font-bold py-2 px-4 ml-2 rounded"
           onClick={(e) => {

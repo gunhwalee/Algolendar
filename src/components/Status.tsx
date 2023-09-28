@@ -8,29 +8,30 @@ import { Count, problemsCount } from "@/utils/transformProfile";
 import Statusbar from "./Statusbar";
 import Progressbar from "./common/Progressbar";
 
-async function fetchData() {
+const fetchStatus = async () => {
   try {
     const response = await fetch(`${API.API_URL}/api/user/leetcode`);
     const data = await response.json();
+
     return data;
   } catch (error) {
     console.error("Error is: ", error);
+
     return TEXT.SERVER_ERROR;
   }
-}
+};
 
 export default function Status() {
-  const { data, isLoading } = useQuery({
+  const { data: response, isLoading } = useQuery({
     queryKey: ["status"],
-    queryFn: async () => fetchData(),
+    queryFn: fetchStatus,
   });
-  if (isLoading) return <div>Loading...</div>;
-  const { result, message } = data;
 
+  if (isLoading) return <div>Loading...</div>;
+  const { result, message, data } = response;
   if (result === "error") return <InformationPage text={message} />;
 
-  const solved = problemsCount(message);
-  // console.log(solved);
+  const solved = problemsCount(data);
 
   return (
     <div className="flex items-center">

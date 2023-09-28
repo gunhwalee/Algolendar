@@ -20,13 +20,11 @@ export default function SubmitForm({ list }: { list: SubmitFormProps[] }) {
         },
         body: JSON.stringify(calendar),
       });
-      const data = await response.json();
+      const { message } = await response.json();
 
-      alert(data.message);
+      alert(message);
     } catch (error) {
-      let message;
-      if (error instanceof Error) message = error.message;
-      console.log(message);
+      console.log("Error Message: ", error);
     }
   };
 

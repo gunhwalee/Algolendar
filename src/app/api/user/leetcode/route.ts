@@ -1,5 +1,6 @@
 import { API } from "@/config/CONFIG";
 import QUERY from "@/config/LEETCODE";
+import TEXT from "@/constants/text";
 import { authConfig } from "@/lib/auth";
 import prisma from "@/lib/db";
 import { getServerSession } from "next-auth";
@@ -11,7 +12,7 @@ export async function GET() {
   if (!session)
     return NextResponse.json({
       result: "error",
-      message: "다시 로그인 해주세요.",
+      message: TEXT.RE_LOGIN,
     });
   const { id } = session;
 
@@ -22,14 +23,14 @@ export async function GET() {
     if (!user)
       return NextResponse.json({
         result: "error",
-        message: "다시 로그인 해주세요.",
+        message: TEXT.RE_LOGIN,
       });
 
     const { leetcode } = user;
     if (!leetcode)
       return NextResponse.json({
         result: "error",
-        message: "Leetcode 아이디를 등록해주세요.",
+        message: TEXT.NEED_LEETCODE_ID,
       });
 
     const response = await fetch(API.LEETCODE_URL, {
@@ -49,15 +50,16 @@ export async function GET() {
     if (data.errors)
       return NextResponse.json({
         result: "error",
-        message: "Leetcode 아이디를 확인해주세요.",
+        message: TEXT.CHECK_LEETCODE_ID,
       });
 
-    return NextResponse.json({ result: "ok", message: data });
+    return NextResponse.json({ result: "ok", data });
   } catch (error) {
     console.error("Error is: ", error);
+
     return NextResponse.json({
       result: "error",
-      message: "잠시 후 다시 시도해주세요.",
+      message: TEXT.SERVER_ERROR,
     });
   }
 }
