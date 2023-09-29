@@ -7,7 +7,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model user {
+model User {
   id       String    @id @db.VarChar(30)
   name     String    @db.VarChar(30)
   email    String    @db.VarChar(30)
@@ -15,4 +15,19 @@ model user {
   calendar String    @default("primary") @db.VarChar(100)
   created  DateTime? @default(now()) @db.DateTime(0)
   setting  Int?
+}
+
+model Topic {
+  id       Int       @id @default(autoincrement())
+  name     String    @unique @db.VarChar(30)
+  nameSlug String    @db.VarChar(30)
+  problems Problem[]
+}
+
+model Problem {
+  id         Int     @id @default(autoincrement())
+  title      String  @unique @db.VarChar(100)
+  titleSlug  String  @db.VarChar(100)
+  difficulty String
+  topics     Topic[]
 }
